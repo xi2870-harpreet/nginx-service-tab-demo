@@ -5,7 +5,6 @@ resource "container" "webserver" {
 
   port {
     local = "80"
-    host  = "80"
   }
 }
 
