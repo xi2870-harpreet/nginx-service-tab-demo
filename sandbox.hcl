@@ -8,7 +8,8 @@ resource "container" "webserver" {
   }
 
   port {
-    local = 80
+    local = "80"
+    host  = "80"
   }
 
   network {
