@@ -4,11 +4,11 @@ resource "network" "main" {
 
 resource "container" "webserver" {
   image {
-    name = "stefanprodan/podinfo:6.5.0"
+    name = "nginxinc/nginx-unprivileged:latest"
   }
 
   port {
-    local = 9898
+    local = 8080
   }
 
   network {
@@ -18,7 +18,7 @@ resource "container" "webserver" {
 
 resource "service" "webserver" {
   target = resource.container.webserver
-  port   = 9898
+  port   = 8080
   scheme = "http"
 }
 
