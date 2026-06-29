@@ -4,21 +4,31 @@ resource "network" "main" {
 
 resource "container" "webserver" {
   image {
-    name = "stefanprodan/podinfo:6.5.0"
+    name = "hashicorp/http-echo:latest"
   }
 
+  command = ["-listen=:5678", "-text=Hello from Instruqt Labs!"]
+
   port {
-    local = 9898
+    local = 5678
   }
 
   network {
     id = resource.network.main.meta.id
   }
+
+  health_check {
+    http {
+      address      = "http://localhost:5678"
+      success_codes = [200]
+    }
+    timeout = "30s"
+  }
 }
 
 resource "service" "webserver" {
   target = resource.container.webserver
-  port   = 9898
+  port   = 5678
   scheme = "http"
 }
 
