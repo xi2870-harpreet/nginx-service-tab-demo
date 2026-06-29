@@ -4,11 +4,11 @@ resource "network" "main" {
 
 resource "container" "webserver" {
   image {
-    name = "nginx:1.25"
+    name = "stefanprodan/podinfo:6.5.0"
   }
 
   port {
-    local = 80
+    local = 9898
   }
 
   network {
@@ -18,11 +18,11 @@ resource "container" "webserver" {
 
 resource "service" "webserver" {
   target = resource.container.webserver
-  port   = 80
+  port   = 9898
   scheme = "http"
 }
 
 resource "terminal" "shell" {
   target = resource.container.webserver
-  shell  = "/bin/bash"
+  shell  = "/bin/sh"
 }
