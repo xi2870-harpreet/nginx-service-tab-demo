@@ -12,9 +12,9 @@ resource "layout" "default" {
   column {
     width = "60"
 
-    tab "nginx" {
+    tab "app" {
       target = resource.service.webserver
-      title  = "NGINX Web Server"
+      title  = "Web App"
       active = true
     }
 
